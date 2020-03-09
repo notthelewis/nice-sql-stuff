@@ -1,0 +1,40 @@
+(left join)
+select * from nodes2 left outer join 247subnets on (247subnets.subnet = nodes2.ip);
+
+(subselect)
+select * from nodes2 where ip in (select subnet from 247subnets);
+
+(create view using subselect)
+create view mip as select * from nodes2 where ip in (select subnet from 247subnets);
+
+(update boolean in view)
+update mip set in_m247_ip_range=1;
+
+
+<creates index called average, based on column avg>
+CREATE INDEX average ON data_collection_week_1 (avg);
+
+(select using index with where condition)
+SELECT * FROM data_collection_week_1 USE INDEX (average) WHERE avg = 46.108;
+
+(subselect printing everything based on min of avg column)
+select * from data_collection_week_1 where avg = (select min(avg) from data_collection_week_1)
+
+(subselect same as previous, except with an exception fro the previous IP)
+select * from data_collection_week_1 where avg = (select min(avg) from data_collection_week_1 WHERE ip != "194.36.110.185");
+
+(show all users processes)
+SHOW PROCESSLIST;
+
+(find the average and standard deviation of the existent data set)
+CREATE TABLE IF NOT EXISTS speed_calc.aver AS (SELECT STD(avg)STD, AVG(avg) AVG FROM pytest.data_collection_week_1)
+
+(show all rows which are 1 standard deviation below the average)
+SELECT * from tier1 WHERE latency < ((select AVG from aver)-(select STD from aver))
+
+(regex to find nodes starting with uk)
+select * from nodes2 where domain REGEXP '^uk';
+
+(select not null)
+SELECT * FROM nodes2 WHERE in_m247_ip_range IS NOT NULL;
+
