@@ -1,3 +1,29 @@
+MariaDB [(none)]> desc pytest.nodes2;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| id               | int(11)     | YES  | UNI | NULL    |       |
+| domain           | varchar(32) | YES  |     | NULL    |       |
+| ip               | varchar(15) | YES  |     | NULL    |       |
+| flag             | varchar(2)  | YES  |     | NULL    |       |
+| internal_node    | tinyint(1)  | NO   |     | 0       |       |
+| in_m247_ip_range | tinyint(1)  | YES  |     | 0       |       |
+| hops_taken       | int(3)      | NO   |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+MariaDB [(none)]> desc pytest.247subnets;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| subnet | varchar(25) | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+
+
+
 (left join)
 select * from nodes2 left outer join 247subnets on (247subnets.subnet = nodes2.ip);
 
