@@ -1,0 +1,24 @@
+It has came to light that stored sql procedures are a more efficient way of handling scripted sql. 
+In lieu of this, I'm gonna re work the logic for the nds tool... 
+
+This is going to COMPLETELY restructure the 2queryMagic.py file. 
+
+I originally used a for loop in python to match the IPs with domain names
+
+```
+  ips_low_latency, hosts_low, lat_low = [], [], []
+
+  for i,x,y in ip_ll:
+      cursorA.execute("SELECT domain FROM pytest.nodes2 WHERE ip = '" + str(i) + "'")
+      hosts_low.append(cursorA.fetchone())
+      ips_low_latency.append(i)
+      lat_low.append(x)
+
+  return zip(ips_low_latency, hosts_low, lat_low)
+```
+
+This is going to be completely restructured using:
+
+CREATE PROCEDURE domSel(IN xip VARCHAR(16)) SELECT domain FROM pytest.nodes2 WHERE ip = xip
+
+
