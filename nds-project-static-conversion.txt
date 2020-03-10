@@ -33,4 +33,14 @@ This will allow me to use syntax similar to:
 ```
 result_args = cursor.callproc(proc_name, args=())
 ```
+-----------------------------
+UPDATE
+-----------------------------
+
+
+Working Python call to stored procedure: 
+
+result_arg = cursorA.callproc('domSel', args=('194.36.110.199', '@dom'))
+for result in cursorA.stored_results():
+	print(result.fetchall())
 
